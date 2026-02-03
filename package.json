@@ -1,0 +1,281 @@
+{
+  "name": "worktree-easy",
+  "displayName": "Worktree Easy",
+  "description": "Manage git worktrees with minimal friction - create, open, and archive worktrees easily",
+  "version": "0.0.1",
+  "publisher": "AbianS",
+  "icon": "media/logo.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AbianS/worktree-easy"
+  },
+  "engines": {
+    "vscode": "^1.108.1"
+  },
+  "categories": [
+    "Other",
+    "SCM Providers"
+  ],
+  "keywords": [
+    "git",
+    "worktree",
+    "branch",
+    "workspace"
+  ],
+  "activationEvents": [
+    "workspaceContains:.git"
+  ],
+  "main": "./dist/extension.js",
+  "browser": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "worktree-easy",
+          "title": "Worktrees",
+          "icon": "$(repo-forked)"
+        }
+      ]
+    },
+    "views": {
+      "worktree-easy": [
+        {
+          "id": "worktreeList",
+          "name": "Worktrees",
+          "icon": "$(repo-forked)",
+          "contextualTitle": "Git Worktrees"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "worktreeList",
+        "contents": "No git repository found.\n[Open Folder](command:vscode.openFolder)",
+        "when": "!gitOpenRepositoryCount"
+      }
+    ],
+    "commands": [
+      {
+        "command": "worktree-easy.create",
+        "title": "Create Worktree",
+        "category": "Worktree",
+        "icon": "$(add)"
+      },
+      {
+        "command": "worktree-easy.open",
+        "title": "Open Worktree",
+        "category": "Worktree",
+        "icon": "$(window)"
+      },
+      {
+        "command": "worktree-easy.openInCurrentWindow",
+        "title": "Open in Current Window",
+        "category": "Worktree"
+      },
+      {
+        "command": "worktree-easy.archive",
+        "title": "Archive Worktree",
+        "category": "Worktree",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "worktree-easy.refresh",
+        "title": "Refresh",
+        "category": "Worktree",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "worktree-easy.reveal",
+        "title": "Reveal in Finder",
+        "category": "Worktree",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "worktree-easy.copyPath",
+        "title": "Copy Path",
+        "category": "Worktree"
+      },
+      {
+        "command": "worktree-easy.switchTo",
+        "title": "Switch to Worktree",
+        "category": "Worktree"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "worktree-easy.create",
+          "when": "view == worktreeList",
+          "group": "navigation@1"
+        },
+        {
+          "command": "worktree-easy.refresh",
+          "when": "view == worktreeList",
+          "group": "navigation@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "worktree-easy.open",
+          "when": "view == worktreeList && viewItem =~ /^worktree/",
+          "group": "inline@1"
+        },
+        {
+          "command": "worktree-easy.reveal",
+          "when": "view == worktreeList && viewItem =~ /^worktree/",
+          "group": "inline@2"
+        },
+        {
+          "command": "worktree-easy.archive",
+          "when": "view == worktreeList && viewItem == worktree",
+          "group": "inline@3"
+        },
+        {
+          "command": "worktree-easy.open",
+          "when": "view == worktreeList && viewItem =~ /^worktree/",
+          "group": "navigation@1"
+        },
+        {
+          "command": "worktree-easy.openInCurrentWindow",
+          "when": "view == worktreeList && viewItem =~ /^worktree/",
+          "group": "navigation@2"
+        },
+        {
+          "command": "worktree-easy.reveal",
+          "when": "view == worktreeList && viewItem =~ /^worktree/",
+          "group": "navigation@3"
+        },
+        {
+          "command": "worktree-easy.copyPath",
+          "when": "view == worktreeList && viewItem =~ /^worktree/",
+          "group": "1_clipboard"
+        },
+        {
+          "command": "worktree-easy.archive",
+          "when": "view == worktreeList && viewItem == worktree",
+          "group": "2_modification"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "worktree-easy.archive",
+          "when": "false"
+        },
+        {
+          "command": "worktree-easy.reveal",
+          "when": "false"
+        },
+        {
+          "command": "worktree-easy.copyPath",
+          "when": "false"
+        },
+        {
+          "command": "worktree-easy.openInCurrentWindow",
+          "when": "false"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "worktree-easy.create",
+        "key": "ctrl+shift+w c",
+        "mac": "cmd+shift+w c"
+      },
+      {
+        "command": "worktree-easy.open",
+        "key": "ctrl+shift+w o",
+        "mac": "cmd+shift+w o"
+      },
+      {
+        "command": "worktree-easy.switchTo",
+        "key": "ctrl+shift+w s",
+        "mac": "cmd+shift+w s"
+      }
+    ],
+    "configuration": {
+      "title": "Worktree Easy",
+      "properties": {
+        "worktree-easy.worktreesFolder": {
+          "type": "string",
+          "default": "",
+          "description": "Directory where worktrees will be created. If empty, you'll be prompted for the path each time."
+        },
+        "worktree-easy.groupByRepository": {
+          "type": "boolean",
+          "default": false,
+          "description": "Create worktrees inside a folder named after the repository (e.g., worktreesFolder/repoName/branchName)"
+        },
+        "worktree-easy.openInNewWindow": {
+          "type": "boolean",
+          "default": true,
+          "description": "Open worktrees in new window by default"
+        },
+        "worktree-easy.confirmArchive": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show confirmation before archiving worktrees"
+        },
+        "worktree-easy.showStatusBarItem": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show current worktree in status bar"
+        },
+        "worktree-easy.postCreateTasks": {
+          "type": "array",
+          "default": [],
+          "description": "Commands to run after creating a worktree",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "command"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Display name for the task"
+              },
+              "command": {
+                "type": "string",
+                "description": "Command to execute. Variables: ${worktreePath}, ${mainWorktree}, ${branchName}"
+              },
+              "cwd": {
+                "type": "string",
+                "description": "Working directory for the command (defaults to worktreePath)"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "biome check src",
+    "test": "vscode-test",
+    "release": "pnpm run package && vsce publish"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.3.11",
+    "@changesets/cli": "2.29.8",
+    "@types/mocha": "10.0.10",
+    "@types/node": "25.2.0",
+    "@types/vscode": "^1.108.1",
+    "@vscode/test-cli": "0.0.12",
+    "@vscode/test-electron": "2.5.2",
+    "@vscode/vsce": "3.7.1",
+    "esbuild": "0.27.2",
+    "npm-run-all": "4.1.5",
+    "typescript": "5.9.3"
+  }
+}
