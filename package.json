@@ -2,7 +2,7 @@
   "name": "worktree-easy",
   "displayName": "Worktree Easy",
   "description": "Manage git worktrees with minimal friction - create, open, and archive worktrees easily",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "publisher": "AbianS",
   "icon": "media/logo.png",
   "license": "MIT",

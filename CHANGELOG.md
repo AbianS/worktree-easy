@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.0
+
+### Major Changes
+
+- 75d3ed4: feat: first release
+
 All notable changes to the "worktree-easy" extension will be documented in this file.
 
 ## 0.0.1
