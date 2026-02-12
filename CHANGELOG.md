@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+### Minor Changes
+
+- 536e23d: Move worktree list view from custom Activity Bar container to the built-in SCM viewlet
+
 ## 1.0.0
 
 ### Major Changes
