@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.1
+
+### Patch Changes
+
+- 0b0d5cb: fix: auto-refresh worktree list on branch change
+
 ## 1.1.0
 
 ### Minor Changes
