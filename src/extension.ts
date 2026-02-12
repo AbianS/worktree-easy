@@ -54,6 +54,15 @@ export async function activate(
     }),
   );
 
+  const gitHeadWatcher = vscode.workspace.createFileSystemWatcher(
+    new vscode.RelativePattern(workspaceFolder, '.git/HEAD'),
+  );
+  gitHeadWatcher.onDidChange(() => {
+    treeProvider.refresh();
+    statusBarManager?.update();
+  });
+  context.subscriptions.push(gitHeadWatcher);
+
   treeProvider.refresh();
 }
 
